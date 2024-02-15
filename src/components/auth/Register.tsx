@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -10,8 +11,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { registerAction } from "@/actions/authAction";
 
+import { useFormState } from "react-dom";
+import AuthSubmitBtn from "./AuthSubmitBtn";
+
+const initialState = {
+  status: 0,
+  error: {},
+};
 export default function Register() {
+  const [state, formAction] = useFormState(registerAction, initialState);
   return (
     <Card>
       <CardHeader>
@@ -19,7 +29,7 @@ export default function Register() {
         <CardDescription>Welcome to the world of ConnectX</CardDescription>
       </CardHeader>
       <CardContent className="space-y-1">
-        <form action="">
+        <form action={formAction}>
           <div className="space-y-1">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -28,8 +38,9 @@ export default function Register() {
               placeholder="Enter your name"
               name="name"
             />
+            <span className="text-red-500 text-xs">{state?.errors?.name}</span>
           </div>
-          {/* <div className="space-y-1">
+          <div className="space-y-1">
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
@@ -37,7 +48,10 @@ export default function Register() {
               placeholder="Enter your Username"
               name="username"
             />
-          </div> */}
+            <span className="text-red-500 text-xs">
+              {state?.errors?.username}
+            </span>
+          </div>
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -46,6 +60,7 @@ export default function Register() {
               placeholder="Enter your email"
               name="email"
             />
+            <span className="text-red-500 text-xs">{state?.errors?.email}</span>
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
@@ -55,6 +70,9 @@ export default function Register() {
               placeholder="Enter your password"
               name="password"
             />
+            <span className="text-red-500 text-xs">
+              {state?.errors?.password}
+            </span>
           </div>
           <div className="space-y-1">
             <Label htmlFor="cpassword">Confirm Password</Label>
@@ -64,8 +82,11 @@ export default function Register() {
               placeholder="Confirm your password"
               name="password_confirmation"
             />
+            <span className="text-red-500 text-xs">
+              {state?.errors?.password_confirmation}
+            </span>
           </div>
-          <Button className="my-2 w-full">Register</Button>
+          <AuthSubmitBtn />
         </form>
       </CardContent>
       <CardFooter></CardFooter>

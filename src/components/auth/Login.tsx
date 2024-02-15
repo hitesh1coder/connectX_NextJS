@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -9,9 +10,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import AuthSubmitBtn from "./AuthSubmitBtn";
+import { useFormState } from "react-dom";
+import { loginAction } from "@/actions/authAction";
+
+const initialState = {
+  status: 0,
+  errors: {},
+};
 
 export default function LoginUser() {
+  const [state, formAction] = useFormState(loginAction, initialState);
   return (
     <Card>
       <CardHeader>
@@ -19,10 +28,11 @@ export default function LoginUser() {
         <CardDescription>Welcome back!!</CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
-        <form action="">
+        <form action={formAction}>
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
             <Input id="email" placeholder="Enter your email" name="email" />
+            <span className="text-red-500 text-xs">{state?.errors?.email}</span>
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
@@ -32,8 +42,11 @@ export default function LoginUser() {
               placeholder="Enter your password"
               name="password"
             />
+            <span className="text-red-500 text-xs">
+              {state?.errors?.password}
+            </span>
           </div>
-          <Button className="w-full my-2">Login</Button>
+          <AuthSubmitBtn />
         </form>
       </CardContent>
       <CardFooter></CardFooter>

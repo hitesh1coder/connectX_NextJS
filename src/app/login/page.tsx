@@ -8,8 +8,8 @@ export default function Login() {
     <div className="w-full h-screen flex justify-center items-center flex-col mt-8">
       <Image src="/images/logo_512.png" alt="404-img" width={80} height={100} />
       <h2 className="text-xl font-bold">ConnectX</h2>
-      <Tabs defaultValue="login" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="login" className=" w-full md:w-[500px]">
+        <TabsList className="grid w-full  grid-cols-2">
           <TabsTrigger value="login">Login</TabsTrigger>
           <TabsTrigger value="register">Register</TabsTrigger>
         </TabsList>
