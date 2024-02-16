@@ -18,7 +18,7 @@ export default function ImagePreview({
         width={20}
         height={20}
         alt="preview-image"
-        className="w-full object-contain"
+        className="w-full object-contain max-h-[300px] rounded-xl"
       />
       <Button
         onClick={callback}

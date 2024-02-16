@@ -11,6 +11,10 @@ import { User } from "@supabase/supabase-js";
 import { Image } from "lucide-react";
 import { Button } from "../ui/button";
 import ImagePreview from "../common/ImagePreview";
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
+import { createClient } from "@/lib/supabase/supabaseClient";
+import Env from "@/Env";
 
 export default function AddPostModal({
   user,
@@ -24,6 +28,7 @@ export default function AddPostModal({
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [content, setContent] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleImageIcon = () => {
     imageRef.current?.click();
@@ -41,6 +46,41 @@ export default function AddPostModal({
       imageRef.current.value = "";
     }
     setImageUrl(null);
+  };
+
+  const handleAddPost = async () => {
+    setLoading(true);
+    const supabase = createClient();
+    const payload: PostPayloadType = {
+      user_id: user.id,
+      content: content,
+    };
+    if (image) {
+      const path = `${user.id}/${uuidv4()}`;
+      const { data, error } = await supabase.storage
+        .from(Env.S3_BUCKET)
+        .upload(path, image);
+      if (error) {
+        setLoading(false);
+        toast.error(error.message), { theme: "colored" };
+        return;
+      }
+      payload.image = data.path;
+    }
+    const { data, error } = await supabase.from("posts").insert(payload);
+    if (error) {
+      toast.error("something went wrong while uploading post"),
+        { theme: "colored" };
+      setLoading(false);
+    }
+    resetState();
+    setLoading(false);
+    toast.success("Post added successfully"), { theme: "colored" };
+    setOpen(false);
+  };
+  const resetState = () => {
+    setContent("");
+    removePreview();
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -72,7 +112,13 @@ export default function AddPostModal({
               className="cursor-pointer"
               onClick={handleImageIcon}
             />
-            <Button size="sm">Post</Button>
+            <Button
+              onClick={handleAddPost}
+              size="sm"
+              disabled={content.length <= 1 || loading}
+            >
+              {loading ? "Loading..." : "Post"}
+            </Button>
           </div>
         </div>
       </DialogContent>
