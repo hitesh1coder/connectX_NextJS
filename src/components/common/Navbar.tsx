@@ -13,6 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AddPostModal from "../posts/AddPostModal";
 import { User as SupabaseUser } from "@supabase/supabase-js";
+import { SettingDropDown } from "./SettingDropDown";
 
 export default function Navbar({ user }: { user: SupabaseUser }) {
   const pathname = usePathname();
@@ -64,14 +65,8 @@ export default function Navbar({ user }: { user: SupabaseUser }) {
           <User size={30} />
         </Link>
       </div>
-      <Link
-        href="/settings"
-        className={`${
-          pathname === "/settings" ? "text-gray-900" : "text-gray-500"
-        }  cursor-pointer hover:text-gray-900`}
-      >
-        <Settings size={30} />
-      </Link>
+
+      <SettingDropDown />
     </nav>
   );
 }
