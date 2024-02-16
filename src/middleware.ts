@@ -6,11 +6,16 @@ export async function middleware(request: NextRequest) {
   const supabase = createClient(cookies());
   const { data } = await supabase.auth.getUser();
 
-  if(data.user===null){
-    return NextResponse.redirect(new URL("/login?error=Please login first to acces this route.",request.url))
+  if (data.user === null) {
+    return NextResponse.redirect(
+      new URL(
+        "/login?error=Please login first to acces this route.",
+        request.url
+      )
+    );
   }
-  return NextResponse.next()
+  return NextResponse.next();
 }
 export const config = {
-  matcher: '/about/:path*',
-}
+  matcher: ["/"],
+};
