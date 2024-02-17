@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { formatDate, getS3URL } from "@/lib/helper";
+import PostLike from "./PostLike";
 
 export default function PostCard({ post }: { post: PostType }) {
   return (
@@ -17,15 +18,11 @@ export default function PostCard({ post }: { post: PostType }) {
       <div className="w-full flex justify-between items-center">
         <div className="flex space-x-2">
           <UserAvatar
-            name={post.users?.name}
-            image={
-              post.users?.profile_image
-                ? getS3URL(post.users?.profile_image)
-                : ""
-            }
+            name={post.name}
+            image={post.profile_image ? getS3URL(post.profile_image) : ""}
           />
           <div>
-            <p className="font-bold">{post.users?.name}</p>
+            <p className="font-bold">{post.name}</p>
             <p className="text-sm">{formatDate(post.created_at)}</p>
           </div>
         </div>
@@ -44,7 +41,7 @@ export default function PostCard({ post }: { post: PostType }) {
         <p className="p-2 font-semibold">{post.content}</p>
         <div className="flex justify-between p-2 my">
           <div className="flex gap-4">
-            <Heart className="cursor-pointer" />
+            <PostLike userId={post.user_id} post={post} />
             <MessageCircle className="cursor-pointer" />
             <Send className="cursor-pointer" />
           </div>

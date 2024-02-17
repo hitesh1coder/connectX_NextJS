@@ -5,16 +5,19 @@ import { cookies } from "next/headers";
 export default async function Home() {
   const supabase = createClient(cookies());
   const { data } = await supabase.auth.getSession();
-  const { data: posts, error } = await supabase
-    .from("posts")
-    .select(
-      "id,content,image,reply_count,likes_count,created_at,users(id,name,username,profile_image)"
-    );
+
+  const { data: posts, error: error } = await supabase
+    .rpc("get_posts_with_likes", {
+      request_user_id: data.session?.user.id,
+    })
+    .order("post_id", { ascending: false });
   return (
     <div>
       {posts &&
         posts?.length > 0 &&
-        posts.map((post) => <PostCard key={post.id} post={post} />)}
+        posts.map((post: PostType) => (
+          <PostCard key={post.post_id} post={post} />
+        ))}
     </div>
   );
 }
