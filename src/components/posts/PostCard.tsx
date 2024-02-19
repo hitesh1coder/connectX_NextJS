@@ -10,8 +10,17 @@ import {
 import Image from "next/image";
 import { formatDate, getS3URL } from "@/lib/helper";
 import PostLike from "./PostLike";
+import AddCommentModal from "../comments/AddCommentModal";
+import { User } from "@supabase/supabase-js";
+import ImageViewModal from "../common/ImageViewModal";
 
-export default function PostCard({ post }: { post: PostType }) {
+export default function PostCard({
+  post,
+  user,
+}: {
+  post: PostType;
+  user: User;
+}) {
   return (
     <div className="bg-muted mt-5 rounded-xl">
       {/* card header  */}
@@ -29,20 +38,17 @@ export default function PostCard({ post }: { post: PostType }) {
         <MoreVertical className="cursor-pointer" />
       </div>
       <div className="w-full">
-        {post.image && (
-          <Image
-            src={getS3URL(post.image)}
-            width={500}
-            height={500}
-            alt="post"
-            className="w-full"
-          />
-        )}
+        {post.image && <ImageViewModal image={post.image} />}
         <p className="p-2 font-semibold">{post.content}</p>
         <div className="flex justify-between p-2 my">
           <div className="flex gap-4">
             <PostLike userId={post.user_id} post={post} />
-            <MessageCircle className="cursor-pointer" />
+            <AddCommentModal
+              user={user}
+              post={post}
+              children={<MessageCircle className="cursor-pointer" />}
+            />
+
             <Send className="cursor-pointer" />
           </div>
           <Bookmark className="cursor-pointer" />
