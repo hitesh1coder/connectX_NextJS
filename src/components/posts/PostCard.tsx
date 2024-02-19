@@ -7,12 +7,12 @@ import {
   MessageCircle,
   Send,
 } from "lucide-react";
-import Image from "next/image";
 import { formatDate, getS3URL } from "@/lib/helper";
 import PostLike from "./PostLike";
 import AddCommentModal from "../comments/AddCommentModal";
 import { User } from "@supabase/supabase-js";
 import ImageViewModal from "../common/ImageViewModal";
+import Link from "next/link";
 
 export default function PostCard({
   post,
@@ -39,7 +39,9 @@ export default function PostCard({
       </div>
       <div className="w-full">
         {post.image && <ImageViewModal image={post.image} />}
-        <p className="p-2 font-semibold">{post.content}</p>
+        <Link href={`/post/${post.post_id}`}>
+          <p className="p-2 font-semibold">{post.content}</p>
+        </Link>
         <div className="flex justify-between p-2 my">
           <div className="flex gap-4">
             <PostLike userId={post.user_id} post={post} />

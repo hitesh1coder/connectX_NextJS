@@ -28,3 +28,22 @@ type UserType = {
   username: string;
   profile_image: string;
 };
+
+type NotificationType = {
+  id: number;
+  user_id: string;
+  post_id: number;
+  type: number;
+  created_at: string;
+  users: any;
+};
+
+type CommentType = {
+  id: number;
+  user_id: string;
+  post_id: number;
+  content: string;
+  created_at: string;
+  image?: string;
+  users: any;
+};
