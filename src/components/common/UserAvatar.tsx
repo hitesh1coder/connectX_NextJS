@@ -4,8 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export default function UserAvatar({
   name,
   image,
-  width = 3,
-  heigth = 3,
+  width = 2.5,
+  heigth = 2.5,
 }: {
   name: string;
   image?: string;

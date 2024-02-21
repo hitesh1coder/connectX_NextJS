@@ -47,3 +47,9 @@ type CommentType = {
   image?: string;
   users: any;
 };
+
+type ProfilePayloadType = {
+  name: string;
+  description?: string;
+  profile_image?: string;
+};

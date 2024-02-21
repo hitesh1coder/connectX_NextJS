@@ -24,7 +24,7 @@ export default function PostCard({
   return (
     <div className="bg-muted mt-5 rounded-xl">
       {/* card header  */}
-      <div className="w-full flex justify-between items-center">
+      <div className="w-full flex justify-between items-center p-2">
         <div className="flex space-x-2">
           <UserAvatar
             name={post.name}
@@ -39,9 +39,9 @@ export default function PostCard({
       </div>
       <div className="w-full">
         {post.image && <ImageViewModal image={post.image} />}
-        <Link href={`/post/${post.post_id}`}>
-          <p className="p-2 font-semibold">{post.content}</p>
-        </Link>
+
+        <p className="p-2 font-semibold">{post.content}</p>
+
         <div className="flex justify-between p-2 my">
           <div className="flex gap-4">
             <PostLike userId={post.user_id} post={post} />
@@ -57,7 +57,9 @@ export default function PostCard({
         </div>
         <div className="flex gap-4 p-2">
           <p>likes {post.likes_count}</p>
-          <p>replies {post.reply_count}</p>
+          <Link href={`/post/${post.post_id}`}>
+            <p>replies {post.reply_count}</p>
+          </Link>
         </div>
       </div>
     </div>
