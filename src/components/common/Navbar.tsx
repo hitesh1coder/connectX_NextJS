@@ -39,7 +39,7 @@ export default function Navbar({ user }: { user: SupabaseUser }) {
           <HomeIcon size={30} />
         </Link>
         <Link
-          href="/"
+          href="/search"
           className={`${
             pathname === "/search" ? "text-foreground" : "text-gray-500"
           }  cursor-pointer hover:text-foreground`}
