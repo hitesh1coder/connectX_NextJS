@@ -7,11 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { cn } from "../lib/utils";
 import { ThemeProvider } from "@/providers/TheamProvider";
 
-export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
 export const metadata: Metadata = {
   title: "connectX",
   description: "connect with your friends",
@@ -24,13 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <ToastContainer />
+      <body className={cn("min-h-screen bg-background font-sans antialiased")}>
+        <ToastContainer position="top-center" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

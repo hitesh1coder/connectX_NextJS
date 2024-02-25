@@ -11,7 +11,7 @@ export default async function FrontEndLayout({
   const { data } = await supabase.auth.getSession();
   return (
     <div className="p-2 md:container relative h-screen">
-      <MobileNavBar />
+      <MobileNavBar user={data?.session?.user!} />
       <Navbar user={data?.session?.user!} />
       <div className="flex flex-col items-center h-full">
         <div className="w-full lg:w-2/5">{children}</div>
