@@ -12,7 +12,7 @@ export default async function Home() {
     })
     .order("post_id", { ascending: false });
   return (
-    <div>
+    <div className="my-5">
       {posts &&
         posts?.length > 0 &&
         posts.map((post: PostType) => (
