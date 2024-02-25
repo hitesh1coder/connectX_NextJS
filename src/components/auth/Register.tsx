@@ -10,18 +10,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { registerAction } from "@/actions/authAction";
-
-import { useFormState } from "react-dom";
 import AuthSubmitBtn from "./AuthSubmitBtn";
+
+import { registerAction } from "@/actions/authAction";
+// import { useFormState } from "react-dom";
 
 const initialState = {
   status: 0,
   error: {},
 };
 export default function Register() {
-  const [state, formAction] = useFormState(registerAction, initialState);
+  // const [state, formAction] = useFormState(registerAction, initialState);
   return (
     <Card>
       <CardHeader>
@@ -29,7 +28,7 @@ export default function Register() {
         <CardDescription>Welcome to the world of ConnectX</CardDescription>
       </CardHeader>
       <CardContent className="space-y-1">
-        <form action={formAction}>
+        <form action={registerAction}>
           <div className="space-y-1">
             <Label htmlFor="name">Name</Label>
             <Input
@@ -38,7 +37,7 @@ export default function Register() {
               placeholder="Enter your name"
               name="name"
             />
-            <span className="text-red-500 text-xs">{state?.errors?.name}</span>
+            {/* <span className="text-red-500 text-xs">{state?.errors?.name}</span> */}
           </div>
           <div className="space-y-1">
             <Label htmlFor="username">Username</Label>
@@ -48,9 +47,9 @@ export default function Register() {
               placeholder="Enter your Username"
               name="username"
             />
-            <span className="text-red-500 text-xs">
+            {/* <span className="text-red-500 text-xs">
               {state?.errors?.username}
-            </span>
+            </span> */}
           </div>
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
@@ -60,7 +59,7 @@ export default function Register() {
               placeholder="Enter your email"
               name="email"
             />
-            <span className="text-red-500 text-xs">{state?.errors?.email}</span>
+            {/* <span className="text-red-500 text-xs">{state?.errors?.email}</span> */}
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
@@ -70,9 +69,9 @@ export default function Register() {
               placeholder="Enter your password"
               name="password"
             />
-            <span className="text-red-500 text-xs">
+            {/* <span className="text-red-500 text-xs">
               {state?.errors?.password}
-            </span>
+            </span> */}
           </div>
           <div className="space-y-1">
             <Label htmlFor="cpassword">Confirm Password</Label>
@@ -82,9 +81,9 @@ export default function Register() {
               placeholder="Confirm your password"
               name="password_confirmation"
             />
-            <span className="text-red-500 text-xs">
+            {/* <span className="text-red-500 text-xs">
               {state?.errors?.password_confirmation}
-            </span>
+            </span> */}
           </div>
           <AuthSubmitBtn />
         </form>
