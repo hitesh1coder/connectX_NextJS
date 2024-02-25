@@ -12,12 +12,13 @@ export default async function Seach({
   searchParams: { [key: string]: string | undefined };
 }) {
   const supabase = createClient(cookies());
+  const { data } = await supabase.auth.getSession();
   const { data: users, error } = await supabase
     .from("users")
     .select("id,name,username,profile_image")
-    .ilike("username", `%${searchParams.q}%`);
+    .ilike("username", `%${searchParams.q}%`)
+    .neq("id", data.session?.user.id);
 
-  console.log(users);
   return (
     <div>
       <SearchInput />
@@ -42,6 +43,9 @@ export default async function Seach({
             </Link>
           ))}
       </div>
+      {users && users.length <= 0 && (
+        <p className="text-center m-3 text-xl">No user found !!</p>
+      )}
     </div>
   );
 }

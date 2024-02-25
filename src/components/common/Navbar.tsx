@@ -8,6 +8,7 @@ import {
   User,
   HomeIcon,
   ArrowLeft,
+  Plus,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -50,9 +51,9 @@ export default function Navbar({ user }: { user: SupabaseUser }) {
         <AddPostModal
           user={user}
           children={
-            <StickyNote
+            <Plus
               size={30}
-              className="text-gray-500 cursor-pointer hover:text-foreground"
+              className="text-gray-500 cursor-pointer hover:text-foreground border-2 rounded-md"
             />
           }
         />
