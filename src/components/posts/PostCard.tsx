@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import UserAvatar from "../common/UserAvatar";
 import {
   MoreVertical,
@@ -13,6 +13,7 @@ import AddCommentModal from "../comments/AddCommentModal";
 import { User } from "@supabase/supabase-js";
 import ImageViewModal from "../common/ImageViewModal";
 import Link from "next/link";
+import PostOptions from "./PostOptions";
 
 export default function PostCard({
   post,
@@ -35,7 +36,7 @@ export default function PostCard({
             <p className="text-sm">{formatDate(post.created_at)}</p>
           </div>
         </div>
-        <MoreVertical className="cursor-pointer" />
+        <PostOptions userId={user.id} post={post} />
       </div>
       <div className="w-full">
         {post.image && <ImageViewModal image={post.image} />}

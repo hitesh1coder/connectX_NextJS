@@ -61,6 +61,22 @@ export default function Posts({
   useEffect(() => {
     const postChannel = supabase.channel("postchannel");
 
+    // delete channel
+    postChannel.on(
+      "postgres_changes",
+      {
+        event: "DELETE",
+        schema: "public",
+        table: "posts",
+      },
+      (payload) => {
+        const filteredPost = posts.filter(
+          (item) => item.post_id !== payload.old?.id
+        );
+        setPosts(filteredPost);
+      }
+    );
+
     // insert channel
     postChannel
       .on(
