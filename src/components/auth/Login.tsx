@@ -42,6 +42,9 @@ export default function LoginUser() {
               name="password"
             />
             <span className="text-red-500 text-xs">{state?.errors?.email}</span>
+            <span className="text-red-500 text-xs">
+              {state?.errors?.password}
+            </span>
           </div>
           <AuthSubmitBtn />
         </form>
