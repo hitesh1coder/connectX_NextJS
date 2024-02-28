@@ -1,12 +1,6 @@
-import React, { use } from "react";
+import React from "react";
 import UserAvatar from "../common/UserAvatar";
-import {
-  MoreVertical,
-  Bookmark,
-  Heart,
-  MessageCircle,
-  Send,
-} from "lucide-react";
+import { Bookmark, MessageCircle, Send } from "lucide-react";
 import { formatDate, getS3URL } from "@/lib/helper";
 import PostLike from "./PostLike";
 import AddCommentModal from "../comments/AddCommentModal";

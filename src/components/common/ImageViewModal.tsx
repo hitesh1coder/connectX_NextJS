@@ -19,7 +19,7 @@ export default function ImageViewModal({ image }: { image: string }) {
           width={500}
           height={500}
           alt="post"
-          className="w-full cursor-pointer"
+          className="w-full cursor-pointer max-h-[70vh] object-contain rounded-md"
         />
       </DialogTrigger>
       <DialogContent className="overflow-y-auto">

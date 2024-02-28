@@ -25,7 +25,10 @@ export default function MobileSideBar() {
             } p-1 rounded-md text-center`}
             href="/"
           >
-            <li className="flex gap-4 mb-3 items-center">
+            <li
+              className="flex gap-4 mb-3 items-center"
+              onClick={() => setOpen(false)}
+            >
               <Home size={24} />
               <p>Home</p>
             </li>
@@ -36,7 +39,10 @@ export default function MobileSideBar() {
             } p-1 rounded-md text-center`}
             href="/search"
           >
-            <li className="flex gap-4 mb-3 items-center">
+            <li
+              className="flex gap-4 mb-3 items-center"
+              onClick={() => setOpen(false)}
+            >
               <Search size={24} />
               <p>Search</p>
             </li>
@@ -47,7 +53,10 @@ export default function MobileSideBar() {
             } p-1 rounded-md text-center`}
             href="/notification"
           >
-            <li className="flex gap-4 mb-3 items-center">
+            <li
+              className="flex gap-4 mb-3 items-center"
+              onClick={() => setOpen(false)}
+            >
               <Bell size={24} />
               <p>Notifications</p>
             </li>
@@ -58,7 +67,10 @@ export default function MobileSideBar() {
             } p-1 rounded-md text-center`}
             href="/profile"
           >
-            <li className="flex gap-4 mb-3 items-center">
+            <li
+              className="flex gap-4 mb-3 items-center"
+              onClick={() => setOpen(false)}
+            >
               <User size={24} />
               <p>Profile</p>
             </li>

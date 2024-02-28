@@ -22,7 +22,7 @@ export default async function Notifications() {
         notification.map((notify: NotificationType) => (
           <div
             key={notify.id}
-            className="flex bg-muted space-x-3 my-2   items-center "
+            className="flex bg-muted space-x-3 my-2 items-center p-1 rounded-lg"
           >
             <UserAvatar
               name={notify.users?.name!}
@@ -35,7 +35,9 @@ export default async function Notifications() {
                   ? "liked your post"
                   : "commented on your post"}
               </p>
-              <p className="text-xs">{formatDate(notify.created_at)}</p>
+              <p className="text-xs font-extralight">
+                {formatDate(notify.created_at)}
+              </p>
             </div>
           </div>
         ))}

@@ -5,39 +5,52 @@ import { createClient } from "@/lib/supabase/supabasServer";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function registerAction(formdata: FormData) {
-  const supabase = createClient(cookies());
-
+export async function registerAction(prevState: any, formdata: FormData) {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   try {
-    const data = {
+    const body = {
       name: formdata.get("name"),
       username: formdata.get("username"),
       email: formdata.get("email"),
       password: formdata.get("password"),
       password_confirmation: formdata.get("password_confirmation"),
     };
-    const payload = await RegisterValidator.validate(data);
-    console.log("payload", payload);
-    //    check if user already exists
-    const { data: userdata, error: error } = await supabase
+
+    const payload = await RegisterValidator.validate(body);
+    // * Check if user name exist
+    const { data: userData, error: findErr } = await supabase
       .from("users")
       .select("id")
       .eq("username", payload.username);
-    if (userdata && userdata.length > 0) {
-      return { status: 400, errors: { username: "user already exists" } };
+    console.log("The user data is", userData);
+    console.log("The user find error", findErr);
+
+    if (userData && userData.length > 0) {
+      return {
+        status: 400,
+        errors: {
+          username: "Username is already taken.please use another username",
+        },
+      };
     }
-    const { error: signupError } = await supabase.auth.signUp({
+
+    // * Now signup the user
+    const { error } = await supabase.auth.signUp({
       email: payload.email,
       password: payload.password,
       options: {
         data: {
-          name: payload.name,
           username: payload.username,
+          name: payload.name,
         },
       },
     });
-    if (signupError) {
-      return { status: 400, error: { email: signupError.message } };
+
+    // * Check if error exits
+    if (error) {
+      console.log("The error is", error);
+      return { status: 400, errors: { email: error.message } };
     }
 
     await supabase.auth.signInWithPassword({
@@ -49,28 +62,33 @@ export async function registerAction(formdata: FormData) {
       return { status: 400, errors: error.messages };
     }
   }
+
   return redirect("/");
 }
 
-export async function loginAction(prevstate: any, formdata: FormData) {
-  const supabase = createClient(cookies());
+export async function loginAction(prevState: any, formdata: FormData) {
   try {
-    const data = {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const body = {
       email: formdata.get("email"),
       password: formdata.get("password"),
     };
-    const payload = await LoginValidator.validate(data);
-    const { error: loginError } = await supabase.auth.signInWithPassword({
+    const payload = await LoginValidator.validate(body);
+
+    const { error } = await supabase.auth.signInWithPassword({
       email: payload.email,
       password: payload.password,
     });
-    if (loginError) {
-      return { status: 400, error: { email: loginError.message } };
+    if (error) {
+      return { status: 400, errors: { email: error.message } };
     }
   } catch (error) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
+      console.log(error.messages);
       return { status: 400, errors: error.messages };
     }
   }
-  redirect("/");
+
+  return redirect("/");
 }

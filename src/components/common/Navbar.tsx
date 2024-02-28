@@ -23,7 +23,7 @@ export default function Navbar({ user }: { user: SupabaseUser }) {
   return (
     <nav className="hidden md:flex w-full justify-between items-center p-2">
       <Image src="/images/logo_512.png" width={30} height={30} alt="logo" />
-      <div className="flex space-x-16 items-center p-2">
+      <div className="flex space-x-16 items-center p-2 transition-all ease-in">
         {!staticRoutes.includes(pathname) && (
           <ArrowLeft
             size={30}
@@ -33,9 +33,9 @@ export default function Navbar({ user }: { user: SupabaseUser }) {
         )}
         <Link
           href="/"
-          className={`${
+          className={`hover:text-foreground cursor-pointer ${
             pathname === "/" ? "text-foreground" : "text-gray-500"
-          } text-gray-500 cursor-pointer hover:text-foreground`}
+          }`}
         >
           <HomeIcon size={30} />
         </Link>

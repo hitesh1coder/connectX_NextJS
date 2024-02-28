@@ -32,7 +32,6 @@ export default function LoginUser() {
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
             <Input id="email" placeholder="Enter your email" name="email" />
-            <span className="text-red-500 text-xs">{state?.errors?.email}</span>
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">Password</Label>
@@ -42,9 +41,7 @@ export default function LoginUser() {
               placeholder="Enter your password"
               name="password"
             />
-            <span className="text-red-500 text-xs">
-              {state?.errors?.password}
-            </span>
+            <span className="text-red-500 text-xs">{state?.errors?.email}</span>
           </div>
           <AuthSubmitBtn />
         </form>

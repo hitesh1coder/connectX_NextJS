@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Plus } from "lucide-react";
-import Image from "next/image";
 import MobileSideBar from "./MobileSideBar";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { SettingDropDown } from "./SettingDropDown";
@@ -12,7 +11,6 @@ export default function MobileNavBar({ user }: { user: SupabaseUser }) {
     <div className="md:hidden">
       <nav className="flex justify-between p-2 items-center">
         <MobileSideBar />
-        <Image src="/images/logo_512.png" width={30} height={30} alt="logo" />
         <AddPostModal
           user={user}
           children={

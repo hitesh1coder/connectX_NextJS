@@ -14,7 +14,7 @@ export default async function FrontEndLayout({
       <MobileNavBar user={data?.session?.user!} />
       <Navbar user={data?.session?.user!} />
       <div className="flex flex-col items-center h-full">
-        <div className="w-full lg:w-2/5">{children}</div>
+        <div className="w-full md:w-3/5 lg:w-2/5">{children}</div>
       </div>
     </div>
   );
